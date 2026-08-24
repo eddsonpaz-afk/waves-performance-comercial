@@ -5,7 +5,7 @@ import {
   LayoutDashboard, Columns3, Users, ListFilter, RefreshCw, Plus,
   Search, X, Save, Phone, Building2, MapPin, Target, TrendingUp,
   DollarSign, BadgeCheck, AlertTriangle, Sparkles, ChevronRight,
-  UserRound, Map, Megaphone, CircleDollarSign, WalletCards,
+  UserRound, Map as MapIcon, Megaphone, CircleDollarSign, WalletCards,
   SlidersHorizontal, ArrowUpRight, CheckCircle2
 } from 'lucide-react';
 
@@ -394,7 +394,7 @@ function Kanban({data,onOpen}) {
 function LeadModal({lead,edit,setEdit,onClose,onSave,saving}) {
   return <div className="modal-backdrop" onMouseDown={e=>e.target===e.currentTarget&&onClose()}><div className="modal">
     <div className="modal-head"><div><span className="eyebrow">{lead.id}</span><h2>{lead.nome}</h2><p>{lead.empresa || 'Sem empresa'} • ({lead.ddd}) {lead.tel}</p></div><button className="icon-btn" onClick={onClose}><X/></button></div>
-    <div className="detail-grid"><Info icon={Building2} label="Empresa" value={lead.empresa||'—'}/><Info icon={Phone} label="Telefone" value={`(${lead.ddd}) ${lead.tel}`}/><Info icon={MapPin} label="UF" value={lead.uf||'—'}/><Info icon={Megaphone} label="Origem" value={lead.orig||'—'}/><Info icon={UserRound} label="Responsável" value={lead.resp||'AGUARDANDO'}/><Info icon={Map} label="Mês" value={lead.mes||'—'}/></div>
+    <div className="detail-grid"><Info icon={Building2} label="Empresa" value={lead.empresa||'—'}/><Info icon={Phone} label="Telefone" value={`(${lead.ddd}) ${lead.tel}`}/><Info icon={MapPin} label="UF" value={lead.uf||'—'}/><Info icon={Megaphone} label="Origem" value={lead.orig||'—'}/><Info icon={UserRound} label="Responsável" value={lead.resp||'AGUARDANDO'}/><Info icon={MapIcon} label="Mês" value={lead.mes||'—'}/></div>
     <form onSubmit={onSave} className="edit-form"><div className="form-grid"><Field label="Etapa"><select value={edit.etapa||''} onChange={e=>setEdit(v=>({...v,etapa:e.target.value}))}>{STAGES.map(v=><option key={v}>{v}</option>)}</select></Field><Field label="Status"><select value={edit.status||''} onChange={e=>setEdit(v=>({...v,status:e.target.value}))}>{STATUSES.map(v=><option key={v}>{v}</option>)}</select></Field><Field label="Interesse"><input value={edit.interesse||''} onChange={e=>setEdit(v=>({...v,interesse:e.target.value}))}/></Field><Field label="Valor"><input type="number" min="0" step="0.01" value={edit.valor||0} onChange={e=>setEdit(v=>({...v,valor:e.target.value}))}/></Field><Field label="Motivo de perda"><select value={edit.motivo||'AGUARDANDO'} onChange={e=>setEdit(v=>({...v,motivo:e.target.value}))}>{LOSS_REASONS.map(v=><option key={v}>{v}</option>)}</select></Field><Field label="Observação" wide><textarea rows="3" value={edit.obs||''} onChange={e=>setEdit(v=>({...v,obs:e.target.value}))}/></Field></div><div className="modal-actions"><button type="button" className="secondary-btn" onClick={onClose}>Cancelar</button><button className="primary-btn" disabled={saving}><Save/>{saving?'Salvando...':'Salvar alterações'}</button></div></form>
   </div></div>;
 }
