@@ -1,0 +1,67 @@
+/* +5px typography pass applied after globals.css */
+.brand strong{font-size:23px}
+.brand span,.sidebar-foot span{font-size:18px}
+.nav{font-size:21px}
+.mini-avatar{font-size:19px}
+.sidebar-foot strong{font-size:19px}
+.eyebrow{font-size:18px}
+.topbar h1{font-size:34px}
+.topbar p{font-size:20px}
+.live-pill{font-size:18px}
+.icon-btn,.secondary-btn,.primary-btn,.reset-btn{font-size:19px}
+.filter span{font-size:16px}
+.filter select,.field input,.field select,.field textarea{font-size:19px}
+.api-warning strong{font-size:19px}
+.api-warning span{font-size:18px}
+.api-warning button{font-size:18px}
+.kpi>span{font-size:17px}
+.kpi>strong{font-size:35px}
+.kpi small{font-size:17px}
+.card-head h2,.leads-tools h2{font-size:22px}
+.card-head>span{font-size:18px}
+.funnel-line{font-size:18px}
+.funnel-line b{font-size:20px}
+.funnel-line em{font-size:17px}
+.insight-card h2{font-size:33px}
+.insight-card p{font-size:19px}
+.insight-meta{font-size:18px}
+.pos{font-size:17px}
+.rank-info strong{font-size:18px}
+.rank-info small{font-size:16px}
+.rank-row>b{font-size:21px}
+.action strong{font-size:30px}
+.action span{font-size:17px}
+.mini-stat span{font-size:16px}
+.mini-stat strong{font-size:21px}
+.stage-table>div{font-size:17px}
+.bar-item>div:first-child{font-size:18px}
+.kanban-head strong{font-size:18px}
+.kanban-head span{font-size:17px}
+.kanban-id{font-size:16px}
+.kanban-card h3{font-size:19px}
+.kanban-card p{font-size:17px}
+.kanban-meta span{font-size:16px}
+.kanban-empty{font-size:17px}
+.status{font-size:16px}
+.seller-avatar{font-size:19px}
+.rank-number{font-size:16px}
+.seller-card h3{font-size:20px}
+.seller-main strong{font-size:38px}
+.seller-main span{font-size:17px}
+.search input{font-size:18px}
+table{font-size:18px}
+th{font-size:16px}
+.lead-avatar{font-size:17px}
+.lead-cell strong{font-size:18px}
+.lead-cell span{font-size:16px}
+.empty{font-size:18px}
+.modal-head h2{font-size:28px}
+.modal-head p{font-size:18px}
+.info span{font-size:16px}
+.info strong{font-size:18px}
+.field>span{font-size:16px}
+.toast{font-size:18px}
+
+@media(max-width:900px){
+  .nav{font-size:0}
+}
