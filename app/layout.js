@@ -1,4 +1,5 @@
 import './globals.css';
+import './font-overrides.css';
 
 export const metadata = {
   metadataBase: new URL('https://waves-performance-comercial.vercel.app'),
