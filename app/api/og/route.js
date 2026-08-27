@@ -1,15 +1,7 @@
-import { ImageResponse } from 'next/og';
+import sharp from 'sharp';
 
-export const runtime = 'edge';
-
-function toBase64(bytes) {
-  let binary = '';
-  const chunk = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunk) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
-  }
-  return btoa(binary);
-}
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const sourceUrl = 'https://waves-performance-comercial.vercel.app/og-image.jpg?v=3';
@@ -19,39 +11,18 @@ export async function GET() {
     return new Response('Preview source unavailable', { status: 502 });
   }
 
-  const bytes = new Uint8Array(await source.arrayBuffer());
-  const dataUrl = `data:image/jpeg;base64,${toBase64(bytes)}`;
+  const input = Buffer.from(await source.arrayBuffer());
+  const output = await sharp(input)
+    .resize(600, 600, { fit: 'cover' })
+    .png({ compressionLevel: 9 })
+    .toBuffer();
 
-  return new ImageResponse(
-    {
-      type: 'div',
-      props: {
-        style: {
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          background: '#061329',
-          alignItems: 'center',
-          justifyContent: 'center'
-        },
-        children: {
-          type: 'img',
-          props: {
-            src: dataUrl,
-            width: 600,
-            height: 600,
-            style: {
-              width: '600px',
-              height: '600px',
-              objectFit: 'cover'
-            }
-          }
-        }
-      }
-    },
-    {
-      width: 600,
-      height: 600
+  return new Response(output, {
+    status: 200,
+    headers: {
+      'Content-Type': 'image/png',
+      'Content-Length': String(output.length),
+      'Cache-Control': 'public, max-age=0, s-maxage=300, must-revalidate'
     }
-  );
+  });
 }
