@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const DEFAULT_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhL9RatcFBufdahpoYAhcsQOxPxyQDEYP5ciQvoF18HxeKwA5gJs_eBoqL59HQcNmOqg/exec';
-const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL || DEFAULT_APPS_SCRIPT_URL;
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK94FvHdbWpEipC_4N9Uq6YoV7nxcpuGDByoJofpE-TO-pNJMnUaHCvk6FdDk72rPv_w/exec';
 const API_TOKEN = process.env.CRM_API_TOKEN || '';
 
 async function parseResponse(response) {
