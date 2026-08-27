@@ -2,8 +2,25 @@ import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
 
+function toBase64(bytes) {
+  let binary = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  }
+  return btoa(binary);
+}
+
 export async function GET() {
-  const imageUrl = 'https://waves-performance-comercial.vercel.app/og-image.jpg?v=3';
+  const sourceUrl = 'https://waves-performance-comercial.vercel.app/og-image.jpg?v=3';
+  const source = await fetch(sourceUrl, { cache: 'no-store' });
+
+  if (!source.ok) {
+    return new Response('Preview source unavailable', { status: 502 });
+  }
+
+  const bytes = new Uint8Array(await source.arrayBuffer());
+  const dataUrl = `data:image/jpeg;base64,${toBase64(bytes)}`;
 
   return new ImageResponse(
     {
@@ -20,7 +37,7 @@ export async function GET() {
         children: {
           type: 'img',
           props: {
-            src: imageUrl,
+            src: dataUrl,
             width: 600,
             height: 600,
             style: {
