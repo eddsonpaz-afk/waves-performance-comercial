@@ -3,34 +3,36 @@ import './font-overrides.css';
 
 export const metadata = {
   metadataBase: new URL('https://waves-performance-comercial.vercel.app'),
-  title: 'Performance Comercial | Waves Plus + CBS',
-  description: 'Dashboard comercial integrado à base LEADS - DASH',
+  title: 'CRM CBS',
+  description: 'Dashboard Comercial • CBS Importadora / Waves Plus',
   icons: {
     icon: '/icon.jpg',
     shortcut: '/icon.jpg',
     apple: '/icon.jpg'
   },
   openGraph: {
-    title: 'Performance Comercial | Waves Plus + CBS',
-    description: 'Dashboard comercial integrado à base LEADS - DASH',
+    title: 'CRM CBS',
+    description: 'Dashboard Comercial • CBS Importadora / Waves Plus',
     url: 'https://waves-performance-comercial.vercel.app/',
-    siteName: 'Performance Comercial',
+    siteName: 'CRM CBS',
     images: [
       {
-        url: '/og-image.jpg',
-        width: 512,
-        height: 512,
-        alt: 'Performance Comercial | Waves Plus + CBS'
+        url: '/crm-cbs-preview-v2.jpg',
+        secureUrl: 'https://waves-performance-comercial.vercel.app/crm-cbs-preview-v2.jpg',
+        width: 320,
+        height: 320,
+        alt: 'CRM CBS',
+        type: 'image/jpeg'
       }
     ],
     locale: 'pt_BR',
     type: 'website'
   },
   twitter: {
-    card: 'summary',
-    title: 'Performance Comercial | Waves Plus + CBS',
-    description: 'Dashboard comercial integrado à base LEADS - DASH',
-    images: ['/og-image.jpg']
+    card: 'summary_large_image',
+    title: 'CRM CBS',
+    description: 'Dashboard Comercial • CBS Importadora / Waves Plus',
+    images: ['/crm-cbs-preview-v2.jpg']
   }
 };
 
