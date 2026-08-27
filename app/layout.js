@@ -17,22 +17,22 @@ export const metadata = {
     siteName: 'CRM CBS',
     images: [
       {
-        url: 'https://waves-performance-comercial.vercel.app/api/og?v=4',
-        secureUrl: 'https://waves-performance-comercial.vercel.app/api/og?v=4',
-        width: 600,
-        height: 600,
+        url: '/crm-cbs-preview-v3.jpg',
+        secureUrl: 'https://waves-performance-comercial.vercel.app/crm-cbs-preview-v3.jpg',
+        width: 320,
+        height: 320,
         alt: 'CRM CBS',
-        type: 'image/png'
+        type: 'image/jpeg'
       }
     ],
     locale: 'pt_BR',
     type: 'website'
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'CRM CBS',
     description: 'Dashboard Comercial • CBS Importadora / Waves Plus',
-    images: ['https://waves-performance-comercial.vercel.app/api/og?v=4']
+    images: ['/crm-cbs-preview-v3.jpg']
   }
 };
 
