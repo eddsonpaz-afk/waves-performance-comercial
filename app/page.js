@@ -76,10 +76,12 @@ function groupPerformance(data) {
   const map = new Map();
   data.forEach(x => {
     const key = clean(x.resp) || 'AGUARDANDO';
-    if (!map.has(key)) map.set(key, { resp:key, total:0, ganhos:0, perdidos:0, valor:0, pipeline:0 });
+    if (!map.has(key)) map.set(key, { resp:key, total:0, emAndamento:0, finalizados:0, ganhos:0, perdidos:0, valor:0, pipeline:0 });
     const row = map.get(key);
     row.total += 1;
     row.valor += Number(x.valor || 0);
+    if (x.status === '🟢 Em andamento') row.emAndamento += 1;
+    if (x.status === '✅ Concluído') row.finalizados += 1;
     if (x.etapa === '✅ Ganho') row.ganhos += 1;
     if (x.etapa === '❌ Perdido') row.perdidos += 1;
     if (['💰 Cotação','🤝 Negociação','🔥 Fechamento'].includes(x.etapa)) row.pipeline += Number(x.valor || 0);
@@ -164,6 +166,9 @@ export default function Home() {
 
   const stageRows = useMemo(() => STAGES.map(stage => ({ stage, count:filtered.filter(x=>x.etapa===stage).length, value:filtered.filter(x=>x.etapa===stage).reduce((s,x)=>s+Number(x.valor||0),0) })), [filtered]);
   const performance = useMemo(() => groupPerformance(filtered), [filtered]);
+  const sellerRanking = useMemo(() => [...performance]
+    .filter(p => p.resp !== 'AGUARDANDO')
+    .sort((a,b)=>b.ganhos-a.ganhos || b.total-a.total || a.resp.localeCompare(b.resp,'pt-BR')), [performance]);
   const origins = useMemo(() => groupCount(filtered,'orig'), [filtered]);
   const losses = useMemo(() => groupCount(filtered.filter(x=>x.etapa==='❌ Perdido'),'motivo'), [filtered]);
   const actionCounts = useMemo(() => ({
@@ -244,7 +249,7 @@ export default function Home() {
           <header className="topbar">
             <div>
               <span className="eyebrow">PERFORMANCE COMERCIAL</span>
-              <h1>{view==='overview'?'Dashboard Comercial':view==='kanban'?'Kanban de Leads':view==='sellers'?'Performance por Responsável':'Base de Leads'}</h1>
+              <h1>{view==='overview'?'Dashboard Comercial':view==='kanban'?'Kanban de Leads':view==='sellers'?'Ranking de Vendedores':'Base de Leads'}</h1>
               <p>LEADS - DASH • CBS Importadora / Waves Plus</p>
             </div>
             <div className="top-actions">
@@ -330,12 +335,12 @@ export default function Home() {
 
           {view === 'sellers' && (
             <section className="seller-grid">
-              {performance.map((p,i)=><article className="glass-card seller-card" key={p.resp}>
+              {sellerRanking.map((p,i)=><article className="glass-card seller-card" key={p.resp}>
                 <div className="seller-top"><div className="seller-avatar">{initials(p.resp)}</div><div><span className="rank-number">#{i+1}</span><h3>{p.resp}</h3></div></div>
-                <div className="seller-main"><strong>{p.total}</strong><span>leads atribuídos</span></div>
-                <div className="seller-metrics"><MiniStat label="Ganhos" value={p.ganhos}/><MiniStat label="Valor" value={money(p.valor)}/><MiniStat label="Pipeline" value={money(p.pipeline)}/><MiniStat label="Conversão" value={`${p.total?(p.ganhos/p.total*100).toFixed(1):'0.0'}%`}/></div>
+                <div className="seller-main"><strong>{p.ganhos}</strong><span>vendas geradas</span></div>
+                <div className="seller-metrics"><MiniStat label="Leads" value={p.total}/><MiniStat label="Em andamento" value={p.emAndamento}/><MiniStat label="Finalizados" value={p.finalizados}/><MiniStat label="Vendas" value={p.ganhos}/></div>
               </article>)}
-              {!performance.length && <Empty text="Nenhum responsável no filtro atual." />}
+              {!sellerRanking.length && <Empty text="Nenhum vendedor no filtro atual." />}
             </section>
           )}
 
