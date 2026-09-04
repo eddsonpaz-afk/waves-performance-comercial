@@ -282,6 +282,17 @@ export default function Home() {
                 <Kpi icon={DollarSign} label="Valor Gerado" value={compact(stats.valor)} sub={money(stats.valor)} tone="gold" />
               </section>
 
+              <section className="glass-card leads-card">
+                <div className="card-head">
+                  <div><span className="eyebrow">RANKING COMERCIAL</span><h2>Vendedores por vendas</h2></div>
+                  <span>{sellerRanking.length} vendedores</span>
+                </div>
+                <div className="table-wrap"><table><thead><tr><th>#</th><th>Vendedor</th><th>Leads</th><th>Em andamento</th><th>Finalizados</th><th>Vendas</th></tr></thead><tbody>
+                  {sellerRanking.map((p,i)=><tr key={p.resp}><td><strong>#{i+1}</strong></td><td><div className="lead-cell"><div className="lead-avatar">{initials(p.resp)}</div><div><strong>{p.resp}</strong><span>{p.ganhos} venda{p.ganhos===1?'':'s'}</span></div></div></td><td>{p.total}</td><td>{p.emAndamento}</td><td>{p.finalizados}</td><td><strong>{p.ganhos}</strong></td></tr>)}
+                  {!sellerRanking.length && <tr><td colSpan="6"><Empty text="Nenhum vendedor no filtro atual." /></td></tr>}
+                </tbody></table></div>
+              </section>
+
               <section className="hero-grid">
                 <article className="glass-card chart-card">
                   <div className="card-head"><div><span className="eyebrow">PIPELINE</span><h2>Funil de vendas</h2></div><span>{stats.total} leads</span></div>
