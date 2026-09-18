@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#03152d" />
+    <meta
+      name="description"
+      content="Dashboard de gestão comercial nacional da CBS, construído a partir do snapshot da planilha comercial."
+    />
+    <title>CBS | Gestão Comercial Nacional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <main class="shell" id="conteudo">
+      <header class="topbar">
+        <div class="brand-lockup" aria-label="CBS Gestão Comercial Nacional">
+          <div class="brand">CBS</div>
+          <div class="brand-divider" aria-hidden="true"></div>
+          <div>
+            <p class="eyebrow">GESTÃO COMERCIAL</p>
+            <h1>Nacional</h1>
+          </div>
+        </div>
+
+        <div class="header-meta">
+          <div class="snapshot-meta">
+            <span class="meta-icon" aria-hidden="true">◫</span>
+            <div>
+              <span>ATUALIZAÇÃO DA BASE</span>
+              <strong>18 SET 2026 · 14:32</strong>
+            </div>
+          </div>
+          <div class="source-pill"><i></i> SNAPSHOT DA PLANILHA</div>
+        </div>
+      </header>
+
+      <section class="filters" aria-label="Filtros do dashboard">
+        <label class="filter-control filter-period">
+          <span>PERÍODO</span>
+          <select id="periodFilter" data-filter="period">
+            <option value="sep">Setembro 2026 · até 17/09</option>
+            <option value="ytd">Acumulado 2026 · jan–set</option>
+          </select>
+        </label>
+        <label class="filter-control">
+          <span>ESTADO</span>
+          <select id="stateFilter" data-filter="state">
+            <option value="all">Todos</option>
+            <option value="CE">Ceará</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PB">Paraíba</option>
+            <option value="SP">São Paulo</option>
+            <option value="BA">Bahia</option>
+          </select>
+        </label>
+        <label class="filter-control">
+          <span>CIDADE</span>
+          <select id="cityFilter" data-filter="city">
+            <option value="all">Todas</option>
+            <option value="FORTALEZA">Fortaleza</option>
+            <option value="CAUCAIA">Caucaia</option>
+            <option value="EUSEBIO">Eusébio</option>
+            <option value="MARACANAU">Maracanaú</option>
+            <option value="RECIFE">Recife</option>
+          </select>
+        </label>
+        <label class="filter-control">
+          <span>VENDEDOR</span>
+          <select id="sellerFilter" data-filter="seller">
+            <option value="all">Todos</option>
+            <option value="FELIPE INTERNO">Felipe Interno</option>
+            <option value="ALVES INTERNO">Alves Interno</option>
+            <option value="WELLINGTON INTERNO">Wellington Interno</option>
+            <option value="NERIS INTERNO">Neris Interno</option>
+          </select>
+        </label>
+        <label class="filter-control">
+          <span>SUPERVISOR</span>
+          <select id="supervisorFilter" data-filter="supervisor">
+            <option value="all">Todos</option>
+            <option value="COMERCIAL INTERNO">Comercial Interno</option>
+            <option value="SUPERVISOR NORDESTE 05 (CE - EXTERNO)">Nordeste 05 · CE externo</option>
+            <option value="SUPERVISOR NORDESTE 03 (PE)">Nordeste 03 · PE</option>
+            <option value="SUPERVISOR NORDESTE 02 (PB,AL,RN)">Nordeste 02 · PB/AL/RN</option>
+          </select>
+        </label>
+        <label class="filter-control">
+          <span>RESPONSÁVEL</span>
+          <select id="ownerFilter" data-filter="owner">
+            <option value="all">Todos</option>
+            <option value="interno">Comercial interno</option>
+            <option value="externo">Canais externos</option>
+          </select>
+        </label>
+        <button class="clear-button" id="clearFilters" type="button">
+          <span aria-hidden="true">↻</span> Limpar filtros
+        </button>
+      </section>
+
+      <div class="scope-line" aria-live="polite">
+        <span class="scope-dot"></span>
+        <span id="scopeLabel">Visão: Setembro 2026 · Brasil</span>
+        <span class="scope-help">Valores exibidos em R$ · fonte: base comercial</span>
+      </div>
+
+      <section class="critical-alert" aria-labelledby="gapTitle">
+        <div class="alert-signal" aria-hidden="true">!</div>
+        <div class="alert-copy">
+          <p class="eyebrow alert-eyebrow">ALERTA CRÍTICO · PEDIDO × ATENDIDO</p>
+          <h2 id="gapTitle">R$ 257,7 mil ainda não foram atendidos.</h2>
+          <p>
+            Essa diferença entre pedido e atendido precisa ser priorizada: é venda que ainda não se converteu em atendimento.
+          </p>
+        </div>
+        <div class="alert-metrics">
+          <div>
+            <span>TAXA DE ATENDIMENTO</span>
+            <strong>98,99%</strong>
+          </div>
+          <div>
+            <span>BASE DO ALERTA</span>
+            <strong>JAN–17 SET</strong>
+          </div>
+        </div>
+        <a class="alert-action" href="#alertas">Ver causas <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="kpi-grid" aria-label="Indicadores principais">
+        <article class="kpi-card accent-cyan">
+          <div class="kpi-heading"><span class="kpi-icon">↗</span><span>REALIZADO</span></div>
+          <strong class="kpi-value" id="actualValue">R$ 1,11 mi</strong>
+          <p id="actualDetail">Atendido no período</p>
+        </article>
+        <article class="kpi-card accent-blue">
+          <div class="kpi-heading"><span class="kpi-icon">▣</span><span>FATURADO</span></div>
+          <strong class="kpi-value muted-value">A integrar</strong>
+          <p>Valor de NF não está na base</p>
+        </article>
+        <article class="kpi-card accent-violet">
+          <div class="kpi-heading"><span class="kpi-icon">◉</span><span>CLIENTES ÚNICOS</span></div>
+          <strong class="kpi-value" id="clientValue">392</strong>
+          <p id="clientDetail">Compradores no período</p>
+        </article>
+        <article class="kpi-card accent-green">
+          <div class="kpi-heading"><span class="kpi-icon">♙</span><span>RCA ATIVOS</span></div>
+          <strong class="kpi-value" id="rcaValue">30</strong>
+          <p id="rcaDetail">Com pedido no período</p>
+        </article>
+        <article class="kpi-card accent-pink">
+          <div class="kpi-heading"><span class="kpi-icon">◎</span><span>POSITIVAÇÃO</span></div>
+          <strong class="kpi-value" id="positivationValue">392</strong>
+          <p>Clientes com compra registrada</p>
+        </article>
+        <article class="kpi-card accent-amber">
+          <div class="kpi-heading"><span class="kpi-icon">◌</span><span>TK / HABITANTE</span></div>
+          <strong class="kpi-value data-review">Em revisão</strong>
+          <p>Vínculo cidade × IBGE a corrigir</p>
+        </article>
+        <article class="kpi-card accent-cyan">
+          <div class="kpi-heading"><span class="kpi-icon">⌁</span><span>TK / POSITIVAÇÃO</span></div>
+          <strong class="kpi-value" id="ticketValue">R$ 2.842</strong>
+          <p id="ticketDetail">Realizado por cliente</p>
+        </article>
+        <article class="kpi-card accent-pink">
+          <div class="kpi-heading"><span class="kpi-icon">⌁</span><span>PROJEÇÃO</span></div>
+          <strong class="kpi-value" id="projectionValue">R$ 1,97 mi</strong>
+          <p id="projectionDetail">Ritmo do período selecionado</p>
+        </article>
+      </section>
+
+      <section class="feature-grid">
+        <article class="panel trend-panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">TÓPICO 2 · TENDÊNCIA</p>
+              <h2>Evolução de pedido × atendido</h2>
+            </div>
+            <div class="chart-legend" aria-label="Legenda do gráfico">
+              <span><i class="legend-bar"></i>Atendido</span>
+              <span><i class="legend-line"></i>Pedido</span>
+              <span><i class="legend-dash"></i>Referência de meta</span>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <svg id="trendChart" viewBox="0 0 760 300" role="img" aria-label="Evolução mensal de pedido e atendido de janeiro a setembro de 2026"></svg>
+          </div>
+          <div class="trend-footer">
+            <span><b>Melhor mês:</b> agosto · R$ 3,74 mi atendidos</span>
+            <span><b>Setembro:</b> dado parcial até 17/09</span>
+          </div>
+        </article>
+
+        <article class="panel goal-panel">
+          <div class="panel-header compact-header">
+            <div>
+              <p class="eyebrow">TÓPICO 1 · META REAL</p>
+              <h2>Meta & projeção</h2>
+            </div>
+            <span class="info-chip">SETEMBRO</span>
+          </div>
+          <div class="goal-content">
+            <div class="goal-ring" id="goalRing" aria-label="Atingimento da meta de 21,5 por cento">
+              <div><strong id="goalPercentage">21,5%</strong><span>atingimento</span></div>
+            </div>
+            <div class="goal-details">
+              <div><span>Meta de referência</span><strong id="targetValue">R$ 5,18 mi</strong></div>
+              <div><span>Projeção no ritmo atual</span><strong id="goalProjectionValue">R$ 1,97 mi</strong></div>
+              <div class="shortfall"><span>Distância da meta</span><strong id="shortfallValue">R$ 3,21 mi</strong></div>
+            </div>
+          </div>
+          <p class="panel-note">Meta mensal consolidada da aba de gerentes. Metas individuais ainda precisam ser vinculadas.</p>
+        </article>
+      </section>
+
+      <section class="management-grid">
+        <article class="panel customer-panel">
+          <div class="panel-header compact-header">
+            <div>
+              <p class="eyebrow">TÓPICO 5 · BASE DE CLIENTES</p>
+              <h2>Saúde da base</h2>
+            </div>
+            <span class="info-chip">AÇÃO</span>
+          </div>
+          <div class="health-grid">
+            <div class="health-stat"><span>ATIVOS NO PERÍODO</span><strong id="healthActive">392</strong><small>compraram em setembro</small></div>
+            <div class="health-stat"><span>NOVOS CLIENTES</span><strong>59</strong><small>1ª compra em 2026</small></div>
+            <div class="health-stat review"><span>REATIVADOS</span><strong>—</strong><small>conectar histórico anterior</small></div>
+            <div class="health-stat attention"><span>SEM COMPRA 60D</span><strong>1.248</strong><small>base para recuperação</small></div>
+          </div>
+          <div class="customer-callout"><span aria-hidden="true">↗</span> Prioridade: acionar a base sem compra há mais de 60 dias.</div>
+        </article>
+
+        <article class="panel service-panel">
+          <div class="panel-header compact-header">
+            <div>
+              <p class="eyebrow">TÓPICO 3 · NÍVEL DE SERVIÇO</p>
+              <h2>Pedido não atendido</h2>
+            </div>
+            <span class="danger-chip">PRIORIDADE 1</span>
+          </div>
+          <div class="service-number"><span>ACUMULADO DA BASE</span><strong>R$ 257.685</strong><small>diferença entre pedido e atendido</small></div>
+          <div class="service-meter"><div><span>Atendido</span><b>98,99%</b></div><div class="meter-track"><i></i></div><div><span>Em aberto</span><b>1,01%</b></div></div>
+          <p class="panel-note">Exigir motivo, responsável e previsão de atendimento para cada exceção.</p>
+        </article>
+
+        <article class="panel alerts-panel" id="alertas">
+          <div class="panel-header compact-header">
+            <div>
+              <p class="eyebrow">TÓPICO 7 · ALERTAS</p>
+              <h2>Fila de atenção</h2>
+            </div>
+            <span class="count-chip">4</span>
+          </div>
+          <ul class="alerts-list">
+            <li class="critical"><span class="alert-dot"></span><div><strong>R$ 257,7 mil entre pedido e atendido</strong><small>Priorizar reversão e registrar causa.</small></div><em>CRÍTICO</em></li>
+            <li><span class="alert-dot"></span><div><strong>Meta do comercial interno sem vínculo</strong><small>Impossibilita atingimento por responsável.</small></div><em>DADOS</em></li>
+            <li><span class="alert-dot"></span><div><strong>12 cidades com população incompatível</strong><small>TK/habitante não deve orientar decisão ainda.</small></div><em>DADOS</em></li>
+            <li><span class="alert-dot"></span><div><strong>Faturamento financeiro indisponível</strong><small>Base possui data de fatura, não valor de NF.</small></div><em>FONTE</em></li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="panel team-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">TÓPICO 4 · FORÇA DE VENDAS</p>
+            <h2>Desempenho do time</h2>
+          </div>
+          <div class="table-caption">Setembro 2026 · até 17/09 <span class="caption-divider">|</span> <span class="caption-muted">meta individual: integração pendente</span></div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>#</th><th>Vendedor</th><th>Supervisor</th><th>Realizado</th><th>Pedido</th><th>Clientes</th><th>Ticket</th><th>Serviço</th></tr></thead>
+            <tbody id="teamTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="territory-grid">
+        <article class="panel territory-panel">
+          <div class="panel-header compact-header">
+            <div>
+              <p class="eyebrow">COBERTURA NACIONAL</p>
+              <h2>Vendas por estado</h2>
+            </div>
+            <span class="info-chip">JAN–SET</span>
+          </div>
+          <div class="brazil-map" aria-label="Representação territorial das vendas por estado">
+            <div class="map-orb orb-1"></div><div class="map-orb orb-2"></div>
+            <div class="state-shape state-ce">CE<span>69,6%</span></div>
+            <div class="state-shape state-pb">PB</div><div class="state-shape state-pe">PE</div>
+            <div class="state-shape state-ba">BA</div><div class="state-shape state-sp">SP</div>
+            <span class="map-label label-norte">NORTE</span><span class="map-label label-nordeste">NORDESTE</span><span class="map-label label-sudeste">SUDESTE</span>
+          </div>
+          <div class="ranking-bars" id="stateRanking"></div>
+        </article>
+
+        <article class="panel territory-panel">
+          <div class="panel-header compact-header">
+            <div>
+              <p class="eyebrow">FOCO CEARÁ</p>
+              <h2>Vendas por cidade</h2>
+            </div>
+            <span class="info-chip">JAN–SET</span>
+          </div>
+          <div class="ceara-visual" aria-label="Representação territorial das cidades do Ceará">
+            <div class="ceara-outline"></div>
+            <span class="city-node fortaleza">FORTALEZA<strong>R$ 7,52 mi</strong></span>
+            <span class="city-node maracanau">MARACANAÚ</span>
+            <span class="city-node caucaia">CAUCAIA</span>
+            <span class="city-node juazeiro">JUAZEIRO DO NORTE</span>
+          </div>
+          <div class="ranking-bars" id="cityRanking"></div>
+        </article>
+      </section>
+
+      <section class="panel cities-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">RANKING DE CIDADES</p>
+            <h2>Onde o resultado acontece</h2>
+          </div>
+          <span class="table-caption">TK/habitante protegido até a revisão do cruzamento IBGE</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Rank</th><th>Cidade</th><th>UF</th><th>Realizado</th><th>Clientes únicos</th><th>TK / positivação</th><th>TK / habitante</th><th>Sinal</th></tr></thead>
+            <tbody id="citiesTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>Dashboard gerencial construído com o snapshot de <strong>18 set 2026</strong>. Indicadores marcados como “a integrar” ou “em revisão” não devem ser usados para decisão até a correção da fonte.</p>
+        <a href="https://script.google.com/macros/s/AKfycbwK-rgbmRQPx_53cuWu_-mOI5hAUlb4iSJYPlXkaObGjm8J7RABKNhqOMlThg0kiTe7eg/exec" target="_blank" rel="noreferrer">Abrir painel de origem <span aria-hidden="true">↗</span></a>
+      </footer>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
