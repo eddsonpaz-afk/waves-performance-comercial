@@ -309,9 +309,10 @@ function renderRanking(container, entries, type) {
     const [code, name, amount] = type === "state" ? entry : ["", entry[0], entry[1]];
     const label = type === "state" ? `${code} · ${name}` : name;
     const percentage = Math.max((amount / max) * 100, 3);
+    const share = (amount / max) * 100;
     return `<div class="ranking-row">
       <span class="rank">${index + 1}</span>
-      <div class="ranking-name"><span><b>${escapeHtml(label)}</b><small>${(amount / rankings.states[0][2] * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%</small></span><div class="ranking-track"><i style="width:${percentage}%"></i></div></div>
+      <div class="ranking-name"><span><b>${escapeHtml(label)}</b><small>${share.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%</small></span><div class="ranking-track"><i style="width:${percentage}%"></i></div></div>
       <span class="ranking-value">${moneyShort(amount)}</span>
     </div>`;
   }).join("");
@@ -326,11 +327,11 @@ function buildTrendChart() {
   const bottom = 38;
   const chartWidth = width - left - right;
   const chartHeight = height - top - bottom;
-  const maxValue = 4200000;
+  const maxValue = 5600000;
   const xStep = chartWidth / monthly.length;
   const y = (value) => top + chartHeight - (value / maxValue) * chartHeight;
   const x = (index) => left + xStep * index + xStep / 2;
-  const gridValues = [0, 1000000, 2000000, 3000000, 4000000];
+  const gridValues = [0, 1000000, 2000000, 3000000, 4000000, 5000000];
   const grid = gridValues.map((value) => {
     const position = y(value);
     const label = value === 0 ? "R$ 0" : `R$ ${value / 1000000} mi`;
